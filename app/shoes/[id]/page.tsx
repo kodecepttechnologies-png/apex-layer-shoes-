@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductDetailView from "@/components/ProductDetailView";
 import { PRODUCTS, getProductById } from "@/data/products";
+import { generateProductJsonLd } from "@/lib/schema";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -26,14 +27,46 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
+  const pageUrl = `https://apex-layer-shoes.vercel.app/shoes/${product.id}`;
+  const fullImageUrl = product.image.startsWith("http")
+    ? product.image
+    : `https://apex-layer-shoes.vercel.app${product.image}`;
+
   return {
     title: `${product.name} | Apex Layer Shoes`,
     description: product.description,
+    alternates: {
+      canonical: pageUrl,
+    },
     openGraph: {
       title: `${product.name} | Apex Layer Shoes`,
       description: product.description,
-      images: [product.image],
+      url: pageUrl,
+      siteName: "Apex Layer Shoes",
+      type: "website",
+      images: [
+        {
+          url: fullImageUrl,
+          width: 1200,
+          height: 630,
+          alt: product.name,
+        },
+      ],
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} | Apex Layer Shoes`,
+      description: product.description,
+      images: [fullImageUrl],
+    },
+    keywords: [
+      product.name,
+      product.category,
+      "Apex Layer Shoes",
+      "running shoes",
+      product.specs.cushioning,
+      product.specs.surface,
+    ],
   };
 }
 
@@ -45,11 +78,23 @@ export default async function ProductDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const jsonLd = generateProductJsonLd(product);
+
   return (
-    <main className="min-h-screen bg-[#fcfcfd] text-gray-900">
-      <Navbar />
-      <ProductDetailView product={product} />
-      <Footer />
-    </main>
+    <>
+      {/* Product, Breadcrumb, and FAQ Structured Data for SEO & AEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      <main className="min-h-screen bg-[#fcfcfd] text-gray-900">
+        <Navbar />
+        <ProductDetailView product={product} />
+        <Footer />
+      </main>
+    </>
   );
 }
+
