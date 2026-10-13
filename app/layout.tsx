@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "Running Shoes in Thrissur | apex Shoes",
   description:
     "Explore running shoes, walking shoes, and tips for choosing comfortable footwear at StepUp Shoes.",
+  verification: {
+    google: "2gRUH28B4lMe8dd82HxGcoQVFZ96E9YTEkkLrLxYvwM",
+  },
 };
 
 export default function RootLayout({
