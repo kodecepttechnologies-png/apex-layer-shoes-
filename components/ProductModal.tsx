@@ -96,6 +96,10 @@ function ProductModalContent({
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : null;
 
+  const savings = product.originalPrice
+    ? (product.originalPrice - product.price).toFixed(2)
+    : null;
+
   const handleRandomAnother = () => {
     const nextRandom = getRandomProduct(product.id);
     onSelectProduct(nextRandom);
@@ -186,6 +190,7 @@ function ProductModalContent({
                       src={img}
                       alt={`${product.name} angle ${idx + 1}`}
                       fill
+                      sizes="80px"
                       className="object-cover"
                     />
                   </button>
@@ -245,9 +250,9 @@ function ProductModalContent({
                     ${product.originalPrice.toFixed(2)}
                   </span>
                 )}
-                {discountPercent && (
+                {savings && (
                   <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                    Save ${(product.originalPrice - product.price).toFixed(2)}
+                    Save ${savings}
                   </span>
                 )}
               </div>
