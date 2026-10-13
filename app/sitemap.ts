@@ -4,11 +4,11 @@ import type { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "http://localhost:3000/",
+      url: "https://apex-layer-shoes.vercel.app/",
       lastModified: new Date(),
     },
     {
-      url: "http://localhost:3000/buying-guide",
+      url: "https://apex-layer-shoes.vercel.app/buying-guide",
       lastModified: new Date(),
     },
   ];

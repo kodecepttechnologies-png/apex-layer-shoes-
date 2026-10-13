@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://stepup-shoes.example/sitemap.xml",
+    sitemap: "https://apex-layer-shoes.vercel.app/sitemap.xml",
   };
 }
