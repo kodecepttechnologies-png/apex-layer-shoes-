@@ -21,9 +21,23 @@ import {
   Share2,
 } from "lucide-react";
 
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Apex Layer Shoes",
+  "url": "https://apex-layer-shoes.vercel.app/",
+};
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#fcfcfd] text-gray-900 selection:bg-neutral-900 selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteSchema),
+        }}
+      />
       {/* 1. Top Announcement Bar */}
       <div className="bg-[#0f0f11] px-4 py-2 text-center text-xs font-medium text-gray-200">
         <div className="mx-auto flex max-w-7xl items-center justify-center gap-2">
