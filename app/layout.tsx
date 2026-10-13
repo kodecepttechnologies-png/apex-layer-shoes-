@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Running Shoes in Thrissur | StepUp Shoes",
+  title: "Running Shoes in Thrissur | apex Shoes",
   description:
     "Explore running shoes, walking shoes, and tips for choosing comfortable footwear at StepUp Shoes.",
 };
