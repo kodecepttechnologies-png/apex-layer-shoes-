@@ -4,7 +4,6 @@ import {
   Package,
   Search,
   Heart,
-  ShoppingBag,
   User,
   ArrowRight,
   Footprints,
@@ -13,13 +12,14 @@ import {
   Sparkles,
   Dumbbell,
   Flame,
-  Star,
   Truck,
   RotateCcw,
   ShieldCheck,
   Lock,
   Share2,
 } from "lucide-react";
+import ProductCatalog from "@/components/ProductCatalog";
+import CartBadge from "@/components/CartBadge";
 
 
 const websiteSchema = {
@@ -92,12 +92,7 @@ export default function Home() {
             <button aria-label="Wishlist" className="rounded-full p-2.5 hover:bg-gray-100 transition">
               <Heart className="h-5 w-5" />
             </button>
-            <button aria-label="Cart" className="relative rounded-full p-2.5 hover:bg-gray-100 transition">
-              <ShoppingBag className="h-5 w-5" />
-              <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[10px] font-bold text-white">
-                0
-              </span>
-            </button>
+            <CartBadge />
             <button aria-label="User Account" className="rounded-full p-2.5 hover:bg-gray-100 transition">
               <User className="h-5 w-5" />
             </button>
@@ -236,140 +231,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Main Shoe Categories: Explore Different Types of Shoes */}
-      <section id="shoes" className="border-t border-gray-100 bg-[#f8f9fa] py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
-              <p className="text-xs font-black uppercase tracking-widest text-gray-500 mb-2">
-                COLLECTIONS & STYLES
-              </p>
-              <h2 className="text-3xl font-extrabold tracking-tight text-gray-950 sm:text-4xl">
-                Explore Different Types of Shoes
-              </h2>
-            </div>
-            <a href="#shoes" className="text-sm font-bold text-gray-600 hover:text-black hover:underline">
-              View all
-            </a>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {/* Running Shoes Card */}
-            <article className="group relative flex flex-col justify-between rounded-3xl border border-gray-200/80 bg-white p-6 sm:p-8 shadow-xs transition duration-300 hover:-translate-y-1 hover:border-black hover:shadow-xl">
-              <div>
-                <div className="mb-6 flex items-center justify-between">
-                  <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-700">
-                    Velocity Tier
-                  </span>
-                  <button aria-label="Favorite" className="rounded-full p-2 text-gray-400 hover:text-red-500 hover:bg-gray-50 transition">
-                    <Heart className="h-5 w-5" />
-                  </button>
-                </div>
-
-                <div className="mb-6 flex justify-center py-4">
-                  <div className="h-28 w-28 rounded-2xl bg-gradient-to-tr from-gray-100 to-gray-50 flex items-center justify-center text-gray-800 group-hover:scale-110 group-hover:bg-black group-hover:text-white transition duration-300 shadow-inner">
-                    <Footprints className="h-12 w-12" />
-                  </div>
-                </div>
-
-                <h3 className="mb-3 text-2xl font-extrabold text-gray-950 transition group-hover:text-blue-600">
-                  Running Shoes
-                </h3>
-                <p className="leading-relaxed text-gray-600 text-sm sm:text-base">
-                  Look for a comfortable fit, suitable cushioning, and good grip for your running routine.
-                </p>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-gray-500 font-medium">Starting from</p>
-                  <p className="text-lg font-black text-gray-950">$115.00</p>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs font-bold text-gray-700">
-                  <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                  <span>4.9 (2.4k)</span>
-                </div>
-              </div>
-            </article>
-
-            {/* Walking Shoes Card */}
-            <article className="group relative flex flex-col justify-between rounded-3xl border border-gray-200/80 bg-white p-6 sm:p-8 shadow-xs transition duration-300 hover:-translate-y-1 hover:border-black hover:shadow-xl">
-              <div>
-                <div className="mb-6 flex items-center justify-between">
-                  <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-700">
-                    Comfort Daily
-                  </span>
-                  <button aria-label="Favorite" className="rounded-full p-2 text-gray-400 hover:text-red-500 hover:bg-gray-50 transition">
-                    <Heart className="h-5 w-5" />
-                  </button>
-                </div>
-
-                <div className="mb-6 flex justify-center py-4">
-                  <div className="h-28 w-28 rounded-2xl bg-gradient-to-tr from-gray-100 to-gray-50 flex items-center justify-center text-gray-800 group-hover:scale-110 group-hover:bg-black group-hover:text-white transition duration-300 shadow-inner">
-                    <Compass className="h-12 w-12" />
-                  </div>
-                </div>
-
-                <h3 className="mb-3 text-2xl font-extrabold text-gray-950 transition group-hover:text-blue-600">
-                  Walking Shoes
-                </h3>
-                <p className="leading-relaxed text-gray-600 text-sm sm:text-base">
-                  Choose footwear that feels comfortable and supports your everyday walking needs.
-                </p>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-gray-500 font-medium">Starting from</p>
-                  <p className="text-lg font-black text-gray-950">$90.00</p>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs font-bold text-gray-700">
-                  <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                  <span>4.8 (1.8k)</span>
-                </div>
-              </div>
-            </article>
-
-            {/* Sports Shoes Card */}
-            <article className="group relative flex flex-col justify-between rounded-3xl border border-gray-200/80 bg-white p-6 sm:p-8 shadow-xs transition duration-300 hover:-translate-y-1 hover:border-black hover:shadow-xl">
-              <div>
-                <div className="mb-6 flex items-center justify-between">
-                  <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-700">
-                    Multi-Sport
-                  </span>
-                  <button aria-label="Favorite" className="rounded-full p-2 text-gray-400 hover:text-red-500 hover:bg-gray-50 transition">
-                    <Heart className="h-5 w-5" />
-                  </button>
-                </div>
-
-                <div className="mb-6 flex justify-center py-4">
-                  <div className="h-28 w-28 rounded-2xl bg-gradient-to-tr from-gray-100 to-gray-50 flex items-center justify-center text-gray-800 group-hover:scale-110 group-hover:bg-black group-hover:text-white transition duration-300 shadow-inner">
-                    <Zap className="h-12 w-12" />
-                  </div>
-                </div>
-
-                <h3 className="mb-3 text-2xl font-extrabold text-gray-950 transition group-hover:text-blue-600">
-                  Sports Shoes
-                </h3>
-                <p className="leading-relaxed text-gray-600 text-sm sm:text-base">
-                  Consider the activity you do and the grip, fit, and support it requires.
-                </p>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-gray-500 font-medium">Starting from</p>
-                  <p className="text-lg font-black text-gray-950">$120.00</p>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs font-bold text-gray-700">
-                  <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                  <span>4.9 (3.2k)</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
+      {/* 6. Dynamic Shoe Products Catalog & Interactive Details Modal */}
+      <ProductCatalog />
 
       {/* 7. Promotional "Summer Sale / 40% OFF" Banner (from Reference) */}
       <section id="sale" className="py-12 bg-white">
