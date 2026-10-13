@@ -33,6 +33,8 @@ import {
   Layers,
   Ruler,
 } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 // Interactive Finder Data
 interface ShoeMatch {
@@ -256,79 +258,8 @@ export default function BuyingGuidePage() {
 
   return (
     <main className="min-h-screen bg-[#fcfcfd] text-gray-900 selection:bg-neutral-900 selection:text-white">
-      {/* 1. Top Announcement Bar */}
-      <div className="bg-[#0f0f11] px-4 py-2 text-center text-xs font-medium text-gray-200">
-        <div className="mx-auto flex max-w-7xl items-center justify-center gap-2">
-          <Package className="h-3.5 w-3.5 text-gray-400" />
-          <span>Free shipping on all orders over $100</span>
-          <span className="text-gray-500">|</span>
-          <span>Easy 30-day returns</span>
-          <span className="text-gray-500">|</span>
-          <span className="text-emerald-400 font-semibold flex items-center gap-1">
-            <CheckCircle2 className="h-3 w-3 inline" /> 100% Fit Guarantee
-          </span>
-        </div>
-      </div>
-
-      {/* 2. Main Navigation Header */}
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          {/* Brand Logo */}
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-2xl font-black uppercase tracking-wider text-gray-950 transition hover:opacity-80"
-          >
-            <span>Apex Layer shoes</span>
-          </Link>
-
-          {/* Navigation Links */}
-          <nav aria-label="Main navigation" className="hidden items-center gap-7 text-sm font-semibold text-gray-700 md:flex">
-            <Link href="/" className="transition hover:text-black">
-              Home
-            </Link>
-            <Link href="/#shoes" className="transition hover:text-black">
-              Shoes
-            </Link>
-            <Link
-              href="/buying-guide"
-              className="relative text-black font-bold after:absolute after:-bottom-2.5 after:left-0 after:h-0.5 after:w-full after:bg-black"
-            >
-              Buying Guide
-            </Link>
-            <Link href="/#faq" className="transition hover:text-black">
-              FAQs
-            </Link>
-            <Link href="/#shoes" className="transition hover:text-black">
-              Men
-            </Link>
-            <Link href="/#shoes" className="transition hover:text-black">
-              Women
-            </Link>
-            <Link href="/#sale" className="font-bold text-red-600 transition hover:text-red-700">
-              Sale
-            </Link>
-          </nav>
-
-          {/* Header Action Icons */}
-          <div className="flex items-center gap-2 sm:gap-3 text-gray-800">
-            <Link href="/#shoes" aria-label="Search" className="rounded-full p-2.5 hover:bg-gray-100 transition">
-              <Search className="h-5 w-5" />
-            </Link>
-            <Link href="/#shoes" aria-label="Wishlist" className="rounded-full p-2.5 hover:bg-gray-100 transition">
-              <Heart className="h-5 w-5" />
-            </Link>
-            <Link href="/#shoes" aria-label="Cart" className="relative rounded-full p-2.5 hover:bg-gray-100 transition">
-              <ShoppingBag className="h-5 w-5" />
-              <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[10px] font-bold text-white">
-                0
-              </span>
-            </Link>
-            <Link href="/" aria-label="User Account" className="rounded-full p-2.5 hover:bg-gray-100 transition">
-              <User className="h-5 w-5" />
-            </Link>
-          </div>
-        </div>
-      </header>
+      {/* Global Navigation Header */}
+      <Navbar />
 
       {/* 3. Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#0f1015] via-[#14151b] to-[#1c1e27] text-white pt-12 pb-20 sm:pt-16 sm:pb-28">
@@ -655,7 +586,7 @@ export default function BuyingGuidePage() {
                     <span className="text-xs font-bold text-gray-900">{currentMatch.bestFor}</span>
                   </div>
                   <Link
-                    href="/#shoes"
+                    href="/shoes"
                     className="inline-flex items-center gap-2 rounded-full bg-black px-5 py-3 text-xs font-bold text-white transition hover:bg-neutral-800 shrink-0 shadow-md active:scale-95"
                   >
                     <span>View Models</span>
@@ -1160,7 +1091,7 @@ export default function BuyingGuidePage() {
               </div>
             </div>
             <Link
-              href="/#shoes"
+              href="/shoes"
               className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-5 py-2.5 text-xs font-bold text-gray-900 hover:border-black transition shrink-0"
             >
               Browse Width Options
@@ -1304,7 +1235,7 @@ export default function BuyingGuidePage() {
 
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
-                  href="/#shoes"
+                  href="/shoes"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-black hover:bg-gray-100 transition shadow-lg active:scale-95"
                 >
                   <span>Explore Shoe Collection</span>
@@ -1327,140 +1258,8 @@ export default function BuyingGuidePage() {
         </div>
       </section>
 
-      {/* 12. Full E-Commerce Footer */}
-      <footer className="border-t border-neutral-800 bg-[#0d0d0f] text-gray-400">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12">
-            {/* Column 1: Brand Info */}
-            <div className="lg:col-span-4">
-              <Link href="/" className="text-2xl font-black uppercase tracking-wider text-white">
-                Apex Layer shoes
-              </Link>
-              <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-400">
-                Your destination for authentic branded shoes. Quality, style, and comfort — all in one place.
-              </p>
-              <div className="mt-6 flex items-center gap-3 text-white">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 cursor-pointer transition">
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                  </svg>
-                </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 cursor-pointer transition">
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z" />
-                  </svg>
-                </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 cursor-pointer transition">
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
-                </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 cursor-pointer transition">
-                  <Share2 className="h-4 w-4" />
-                </span>
-              </div>
-            </div>
-
-            {/* Column 2: Shop */}
-            <div className="lg:col-span-2">
-              <p className="text-xs font-black uppercase tracking-wider text-white mb-4">SHOP</p>
-              <ul className="space-y-3 text-sm">
-                <li>
-                  <Link href="/#shoes" className="hover:text-white transition">
-                    All Shoes
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#shoes" className="hover:text-white transition">
-                    Men
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#shoes" className="hover:text-white transition">
-                    Women
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#shoes" className="hover:text-white transition">
-                    Kids
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#sale" className="hover:text-white transition text-red-400">
-                    Sale
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 3: Customer Care */}
-            <div className="lg:col-span-2">
-              <p className="text-xs font-black uppercase tracking-wider text-white mb-4">CUSTOMER CARE</p>
-              <ul className="space-y-3 text-sm">
-                <li>
-                  <Link href="/#faq" className="hover:text-white transition">
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/buying-guide" className="hover:text-white transition text-white font-semibold">
-                    Buying Guide
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#faq" className="hover:text-white transition">
-                    Shipping Info
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#faq" className="hover:text-white transition">
-                    Returns & Exchanges
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/buying-guide#fit-checklist" className="hover:text-white transition">
-                    Size & Fit Guide
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 4: Newsletter */}
-            <div className="lg:col-span-4">
-              <p className="text-xs font-black uppercase tracking-wider text-white mb-4">NEWSLETTER</p>
-              <p className="mb-4 text-sm text-gray-400">
-                Get updates on new arrivals, exclusive offers, and runner guides.
-              </p>
-              <div className="flex items-center rounded-full bg-neutral-900 border border-neutral-800 p-1.5 focus-within:border-gray-500">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full bg-transparent px-4 text-sm text-white placeholder-gray-500 outline-hidden"
-                />
-                <button
-                  type="button"
-                  aria-label="Subscribe"
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-black hover:bg-gray-200 transition"
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-neutral-800 pt-8 text-xs text-gray-500 sm:flex-row">
-            <p>Apex Layer Shoes — Expert Footwear Engineering & Performance Guide.</p>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-white transition">
-                Terms & Conditions
-              </a>
-              <a href="#" className="hover:text-white transition">
-                Privacy Policy
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* Global E-Commerce Footer */}
+      <Footer />
     </main>
   );
 }

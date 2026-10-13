@@ -2,27 +2,21 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Star,
   Heart,
-  Eye,
   Shuffle,
   Sparkles,
   ArrowRight,
 } from "lucide-react";
-import { Product, PRODUCTS, getRandomProduct } from "../data/products";
-import ProductModal from "./ProductModal";
+import { PRODUCTS, getRandomProduct } from "../data/products";
 
-interface ProductCatalogProps {
-  onCartCountChange?: (count: number) => void;
-}
-
-export default function ProductCatalog({ onCartCountChange }: ProductCatalogProps) {
+export default function ProductCatalog() {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [activeProduct, setActiveProduct] = useState<Product | null>(null);
   const [wishlist, setWishlist] = useState<Record<string, boolean>>({});
-  const [cartCount, setCartCount] = useState<number>(0);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const categories = ["All", "Running", "Walking", "Sports", "Lifestyle", "Training"];
 
@@ -33,40 +27,16 @@ export default function ProductCatalog({ onCartCountChange }: ProductCatalogProp
 
   const handleOpenRandomProduct = () => {
     const random = getRandomProduct();
-    setActiveProduct(random);
+    router.push(`/shoes/${random.id}`);
   };
 
   const handleToggleWishlist = (productId: string, e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
-    setWishlist((prev) => {
-      const updated = !prev[productId];
-      showToast(updated ? "Added to your wishlist!" : "Removed from wishlist");
-      return { ...prev, [productId]: updated };
-    });
-  };
-
-  const handleAddToCart = (product: Product, quantity: number, size: string | number, color: string) => {
-    const newCount = cartCount + quantity;
-    setCartCount(newCount);
-    if (onCartCountChange) {
-      onCartCountChange(newCount);
-    }
-    // Also dispatch custom event for header sync
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(
-        new CustomEvent("apex-cart-updated", {
-          detail: { count: newCount, product, quantity, size, color },
-        })
-      );
-    }
-    showToast(`Added ${quantity}x ${product.name} (Size ${size}) to cart!`);
-  };
-
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 2800);
+    setWishlist((prev) => ({
+      ...prev,
+      [productId]: !prev[productId],
+    }));
   };
 
   return (
@@ -89,19 +59,27 @@ export default function ProductCatalog({ onCartCountChange }: ProductCatalogProp
               Explore Different Types of Shoes
             </h2>
             <p className="mt-2 text-sm sm:text-base text-gray-600 max-w-2xl">
-              Click any shoe to view high-resolution photography, sizing, technical specs, and customer reviews.
+              Click any shoe to view its dedicated details page with high-res photos, sizing options, and complete technical specifications.
             </p>
           </div>
 
-          {/* Quick "Pick Random Shoe" Action Button */}
+          {/* Action Buttons */}
           <div className="flex items-center gap-3">
             <button
               onClick={handleOpenRandomProduct}
-              className="group inline-flex items-center gap-2.5 rounded-full bg-black px-5 py-3 text-sm font-bold text-white shadow-md hover:bg-neutral-800 hover:shadow-lg transition active:scale-95"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-white border border-gray-300 px-5 py-3 text-sm font-bold text-gray-900 shadow-xs hover:border-black hover:bg-gray-50 transition active:scale-95"
             >
               <Shuffle className="h-4 w-4 transition duration-300 group-hover:rotate-180" />
-              <span>🎲 Pick Random Shoe</span>
+              <span>🎲 View Random Shoe Page</span>
             </button>
+
+            <Link
+              href="/shoes"
+              className="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-bold text-white shadow-md hover:bg-neutral-800 transition active:scale-95"
+            >
+              <span>View All Shoes Page</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
 
@@ -128,9 +106,13 @@ export default function ProductCatalog({ onCartCountChange }: ProductCatalogProp
             ))}
           </div>
 
-          <span className="hidden lg:block text-xs font-semibold text-gray-400">
-            Showing {filteredProducts.length} shoe{filteredProducts.length > 1 ? "s" : ""}
-          </span>
+          <Link
+            href="/shoes"
+            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-black hover:underline whitespace-nowrap"
+          >
+            <span>Go to /shoes catalog</span>
+            <ArrowRight className="h-3 w-3" />
+          </Link>
         </div>
 
         {/* Products Grid */}
@@ -142,9 +124,9 @@ export default function ProductCatalog({ onCartCountChange }: ProductCatalogProp
               : null;
 
             return (
-              <article
+              <Link
                 key={product.id}
-                onClick={() => setActiveProduct(product)}
+                href={`/shoes/${product.id}`}
                 className="group relative flex flex-col justify-between rounded-3xl border border-gray-200/90 bg-white p-5 shadow-xs transition duration-300 hover:-translate-y-1.5 hover:border-black hover:shadow-xl cursor-pointer"
               >
                 <div>
@@ -169,7 +151,7 @@ export default function ProductCatalog({ onCartCountChange }: ProductCatalogProp
                     </button>
                   </div>
 
-                  {/* Shoe Image Box with Zoom and Quick View overlay */}
+                  {/* Shoe Image Box with Hover Zoom */}
                   <div className="relative mb-5 flex h-48 w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-tr from-gray-50 via-stone-50 to-gray-100 p-3 group-hover:bg-gray-100 transition duration-300">
                     <Image
                       src={product.image}
@@ -185,11 +167,11 @@ export default function ProductCatalog({ onCartCountChange }: ProductCatalogProp
                       </span>
                     )}
 
-                    {/* Quick View Floating Pill on Hover */}
+                    {/* View Details Floating Pill on Hover */}
                     <div className="absolute inset-x-4 bottom-3 flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-200">
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-black/90 px-3.5 py-1.5 text-xs font-bold text-white shadow-md backdrop-blur-xs">
-                        <Eye className="h-3.5 w-3.5" />
-                        <span>Quick View Details</span>
+                        <span>View Details Page</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
                   </div>
@@ -216,7 +198,7 @@ export default function ProductCatalog({ onCartCountChange }: ProductCatalogProp
                 <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
                   <div>
                     <span className="text-[10px] text-gray-400 font-medium block">
-                      Starting from
+                      Price
                     </span>
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-lg font-black text-gray-950">
@@ -240,7 +222,7 @@ export default function ProductCatalog({ onCartCountChange }: ProductCatalogProp
                     </span>
                   </div>
                 </div>
-              </article>
+              </Link>
             );
           })}
         </div>
@@ -249,10 +231,10 @@ export default function ProductCatalog({ onCartCountChange }: ProductCatalogProp
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-between rounded-2xl border border-gray-200 bg-white p-6 shadow-xs">
           <div className="mb-4 sm:mb-0">
             <h4 className="font-extrabold text-gray-950 text-base">
-              Can’t decide which footwear suits your stride?
+              Looking for our complete footwear catalog?
             </h4>
             <p className="text-xs text-gray-500 mt-0.5">
-              Try our interactive random picker or check our runner sizing guide.
+              Browse all styles, filter by sport, search models, and compare technical specs on our dedicated Shoes page.
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -261,35 +243,19 @@ export default function ProductCatalog({ onCartCountChange }: ProductCatalogProp
               className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-5 py-2.5 text-xs font-bold text-gray-800 hover:border-black hover:bg-black hover:text-white transition"
             >
               <Shuffle className="h-3.5 w-3.5" />
-              <span>Random Shoe Picker</span>
+              <span>Random Shoe Page</span>
             </button>
-            <a
-              href="/buying-guide"
+            <Link
+              href="/shoes"
               className="inline-flex items-center gap-1.5 rounded-full bg-black px-5 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition"
             >
-              <span>Buying Guide</span>
+              <span>Explore Shoes Page</span>
               <ArrowRight className="h-3.5 w-3.5" />
-            </a>
+            </Link>
           </div>
         </div>
 
       </div>
-
-      {/* Product Details Modal Dialog */}
-      <ProductModal
-        product={activeProduct}
-        onClose={() => setActiveProduct(null)}
-        onSelectProduct={(p) => setActiveProduct(p)}
-        onAddToCart={handleAddToCart}
-      />
-
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-2xl bg-neutral-900 px-5 py-3 text-xs font-bold text-white shadow-2xl border border-neutral-700 animate-in slide-in-from-bottom-5 duration-200">
-          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>{toastMessage}</span>
-        </div>
-      )}
     </section>
   );
 }

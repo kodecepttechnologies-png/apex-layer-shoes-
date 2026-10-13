@@ -8,6 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://apex-layer-shoes.vercel.app"),
   title: "Running Shoes in Thrissur | apex Shoes",
   description:
     "Explore running shoes, walking shoes, and tips for choosing comfortable footwear at StepUp Shoes.",

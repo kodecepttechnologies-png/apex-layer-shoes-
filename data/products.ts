@@ -368,3 +368,8 @@ export function getRandomProduct(excludeId?: string): Product {
   const randomIndex = Math.floor(Math.random() * available.length);
   return available[randomIndex] || PRODUCTS[0];
 }
+
+export function getProductById(id: string): Product | undefined {
+  return PRODUCTS.find((p) => p.id === id);
+}
+
